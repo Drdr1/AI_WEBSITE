@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدماتنا</title>
+    <link rel="stylesheet"href="bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .service {
+            background: #fff;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .service h2 {
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <h1>الخدمات التي نقدمها</h1>
+
+    <div class="service">
+        <h2><button id="service1" type="button" class="btn btn-primary">التعرف عن المجرمين</button></h2>
+        <p>نقدم خدمات تحسين الصور لتكون أكثر وضوحًا وجاذبية باستخدام تقنيات متقدمة.</p>
+        <form id="uploadForm1" enctype="multipart/form-data">
+            <input type="file" id="fileInput1" name="file" accept="image/*" required>
+            <button type="submit">تحميل الصورة</button>
+        </form>
+        <div id="result1"></div>
+    </div>
+    
+    <div class="service">
+        <h2><button id="service2" type="button" class="btn btn-primary">الكشف عن المجرمين</button></h2>
+        <p>نستخدم تكنولوجيا التعرف على الوجوه لتقديم حلول أمنية وذكية.</p>
+        <form id="uploadForm2" enctype="multipart/form-data">
+            <input type="file" id="fileInput2" name="file" accept="image/*" required>
+            <button type="submit">تحميل الصورة</button>
+        </form>
+        <div id="result2"></div>
+    </div>
+    
+    <div class="service">
+        <h2><button id="service3" type="button" class="btn btn-primary">تزوير العملات</button></h2>
+        <p>نقدم خدمات تحليل وتحديد العملات المزورة لضمان الأمان المالي.</p>
+        <form id="uploadForm3" enctype="multipart/form-data">
+            <input type="file" id="fileInput3" name="file" accept="image/*" required>
+            <button type="submit">تحميل الصورة</button>
+        </form>
+        <div id="result3"></div>
+    </div>
+    <script>
+        document.getElementById('service1').addEventListener('click', function () {
+            fetch('/service/1', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    
+        document.getElementById('service2').addEventListener('click', function () {
+            fetch('/service/2', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    
+        document.getElementById('service3').addEventListener('click', function () {
+            fetch('/service/3', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+    <script>
+        // Function to handle file upload
+        function handleUpload(formId, resultId, serviceId) {
+            const form = document.getElementById(formId);
+            const resultDiv = document.getElementById(resultId);
+    
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+    
+                const fileInput = form.querySelector('input[type="file"]');
+                const file = fileInput.files[0];
+    
+                if (!file) {
+                    alert('الرجاء اختيار صورة أولاً');
+                    return;
+                }
+    
+                const formData = new FormData();
+                formData.append('file', file);
+    
+                fetch(`/upload/${serviceId}`, {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        resultDiv.innerHTML = `<p style="color: red;">${data.error}</p>`;
+                    } else {
+                        resultDiv.innerHTML = `
+                            <p style="color: green;">${data.message}</p>
+                            <img src="${data.image_url}" alt="Processed Image" class="processed-image">
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    resultDiv.innerHTML = `<p style="color: red;">حدث خطأ أثناء معالجة الصورة</p>`;
+                });
+            });
+        }
+    
+        // Attach handlers for each service
+        handleUpload('uploadForm1', 'result1', 1);
+        handleUpload('uploadForm2', 'result2', 2);
+        handleUpload('uploadForm3', 'result3', 3);
+    </script>
+</body>
+</html>

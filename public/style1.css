@@ -1,0 +1,87 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+.title{
+    align-content: center;
+}
+
+
+
+header {
+    background-color: #003366;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.hero {
+    background-color: #0055a5;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.services {
+    padding: 20px;
+    text-align: center;
+}
+
+.service-item {
+    background-color: #ddd;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    display: inline-block;
+    width: 200px;
+}
+
+/*footer {
+    background-color: #003366;
+    color: wheat;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+
+
+}*/
+.logo{
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+.processed-image {
+    max-width: 300px;  /* Adjust this value to control the maximum width */
+    max-height: 300px; /* Adjust this value to control the maximum height */
+    width: auto;       /* Maintain aspect ratio */
+    height: auto;      /* Maintain aspect ratio */
+    display: block;    /* Ensure the image is centered */
+    margin: 0 auto;    /* Center the image horizontally */
+}
